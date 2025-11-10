@@ -322,6 +322,8 @@ def update():
 
     if player.hp <= 0:
         GAME = "gameover"
+        music.stop()
+        sounds.game_over.play()
 
     if not enemies and current_wave == max_waves:
         GAME = "win"
@@ -337,12 +339,14 @@ def on_mouse_down(pos):
         current_wave = 1
         spawn_wave(current_wave)
         GAME = "game"
+        play_music(VOLUME=0.1)
         return
     if GAME == "win":
         GAME = "menu"
         player = Player((WIDTH/2, HEIGHT/2))
         current_wave = 1
         spawn_wave(current_wave)
+        play_music(VOLUME=0.1)  
         return
 
     if choosing_upgrade:
@@ -364,7 +368,9 @@ def on_mouse_down(pos):
 
     if GAME == "game":
         projectiles.append(Projectile(player.actor.pos, pos))
+        sounds.magic_missil.play()
         return
+
 
     for i, rect in enumerate(bottons_menu):
         if rect.collidepoint(pos):
@@ -372,7 +378,7 @@ def on_mouse_down(pos):
                 GAME = "game"
             elif i == 1:
                 volume_on = not volume_on
-                music.set_volume(0.2 if volume_on else 0)
+                music.set_volume(0.1 if volume_on else 0)
                 options[1] = "Music and Sounds: On" if volume_on else "Music and Sounds: Off"
             elif i == 2:
                 exit()
