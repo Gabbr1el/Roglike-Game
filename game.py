@@ -1,6 +1,8 @@
 # __________IMPORTS__________
 from random import randint
 from pygame import Rect
+import pgzero
+import pgzrun
 
 #____________MUSIC____________
 def play_music(VOLUME):
@@ -384,3 +386,4 @@ def on_mouse_down(pos):
                 exit()
 
 
+pgzrun.go()
